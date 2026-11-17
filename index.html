@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tipzy</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef3f1;--card:#fff;--ink:#12302b;--mut:#5d7771;--line:#d5e2de;--acc:#e8590c;--teal:#0f766e;--bad:#c92a2a;--good:#2b8a3e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1f1c;--card:#15302b;--ink:#e6f2ee;--mut:#93b0a9;--line:#244640;--acc:#ff8a3d;--teal:#2dd4bf;--good:#69db7c;--bad:#ff8787;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1f1c;--card:#15302b;--ink:#e6f2ee;--mut:#93b0a9;--line:#244640;--acc:#ff8a3d;--teal:#2dd4bf;--good:#69db7c;--bad:#ff8787;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'Bricolage Grotesque',system-ui,sans-serif}
+nav{display:flex;gap:6px;padding:10px 14px;overflow-x:auto;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;border-bottom:1px solid var(--line)}
+nav b{font-weight:800;margin-right:10px;align-self:center;color:var(--teal);white-space:nowrap}
+nav button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:99px;font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+main{max-width:1050px;margin:0 auto;padding:16px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.k{font-size:28px;font-weight:800}.s{color:var(--mut);font-size:13px}
+h2{margin:18px 0 8px;font-size:20px}h3{margin:0 0 8px;font-size:16px}
+.good{color:var(--good)}.bad{color:var(--bad)}
+table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+.wrap{overflow-x:auto}
+input,select,textarea{font:inherit;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.fb{padding:10px 0;border-bottom:1px solid var(--line)}
+.pill{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--line);margin:2px 3px 0 0}
+/* owner */
+.hero{display:flex;gap:20px;flex-wrap:wrap;align-items:center;padding:20px;border-radius:22px;color:#fff;background:linear-gradient(135deg,#0f766e,#164e63 60%,#7c2d12)}
+.hero h2{margin:0;color:#fff}.hero .big{font-size:44px;font-weight:800;line-height:1}
+.ring{width:130px;height:130px;position:relative;flex:none}.ring svg{transform:rotate(-90deg)}.ring circle{fill:none;stroke-width:11;stroke-linecap:round}
+.ring .bg{stroke:rgba(255,255,255,.2)}.ring .fg{stroke:#ffd43b;stroke-dasharray:327;animation:rg 1.2s ease-out both}@keyframes rg{from{stroke-dashoffset:327}}
+.ring b{position:absolute;inset:0;display:grid;place-content:center;text-align:center;font-size:32px;line-height:1}.ring b small{font-size:11px;font-weight:400;opacity:.85}
+.kt{display:flex;gap:12px;align-items:center}.ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;flex:none;background:var(--line)}
+.dl{font-size:12px;font-weight:600}
+.bar{height:9px;border-radius:9px;background:var(--line);overflow:hidden;display:flex}.bar i{display:block;height:100%}
+.two{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));margin-top:12px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}.seg button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 14px;font:inherit;font-size:13px;cursor:pointer;transition:transform .15s}.seg button:active{transform:scale(.93)}.seg button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.ins{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.ins:last-child{border:0}
+.av2{width:36px;height:36px;border-radius:50%;background:var(--line);display:grid;place-items:center;flex:none}
+.fbk{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.lr{display:grid;grid-template-columns:24px 1fr 34px;gap:8px;align-items:center;margin:6px 0;font-size:13px}
+@media(max-width:520px){.hero{justify-content:center;text-align:center}.hero .big{font-size:38px}}
+/* customer phone */
+.stage{display:flex;justify-content:center}
+.phone{width:min(380px,100%);min-height:640px;border-radius:34px;position:relative;overflow:hidden;background:linear-gradient(160deg,#0f766e,#164e63 55%,#312e81);color:#fff;padding:22px 18px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.blob{position:absolute;border-radius:50%;filter:blur(40px);opacity:.55;animation:fl 9s ease-in-out infinite alternate}
+.b1{width:220px;height:220px;background:#a78bfa;top:-50px;right:-60px}.b2{width:200px;height:200px;background:#2dd4bf;bottom:20px;left:-70px;animation-delay:-4s}
+@keyframes fl{to{transform:translate(30px,40px) scale(1.2)}}
+.glass{position:relative;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:22px;padding:18px;margin-bottom:14px}
+.scr{position:relative}.scr.enter{animation:in .45s ease}@keyframes in{from{opacity:0;transform:translateY(14px)}}
+.av{width:92px;height:92px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;font-size:46px;background:linear-gradient(135deg,#c7f9ee,#2dd4bf);box-shadow:0 0 0 5px rgba(255,255,255,.35);animation:pu 2.6s ease-in-out infinite}
+@keyframes pu{50%{box-shadow:0 0 0 12px rgba(255,255,255,.1)}}
+.ctr{text-align:center}
+.amts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.amt{padding:9px 0;min-width:0;border-radius:12px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff;font:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:.2s}
+.amt:hover{transform:translateY(-2px)}.amt.on{background:#fff;color:#0f766e;transform:scale(1.06)}
+.phone input,.phone textarea{width:100%;background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35);color:#fff;margin-top:8px}
+.phone ::placeholder{color:rgba(255,255,255,.7)}
+.quote{min-height:64px;font-size:19px;font-weight:600;line-height:1.4;margin:4px 6px 16px;text-align:center}.quote.typing::after{content:'|';margin-left:2px;opacity:.8}.amt:active,.go:active,.chip:active,.stars span:active{transform:scale(.92)!important}.go{transition:transform .15s,filter .2s}.go:hover:not(:disabled){filter:brightness(1.08)}.amt.on{animation:bump .3s ease}@keyframes bump{50%{transform:scale(1.16)}}.stars span.on{animation:bump .3s ease}
+.go{width:100%;padding:11px 16px;border:0;border-radius:12px;background:linear-gradient(135deg,#34d399,#22d3ee);color:#053b3a;font:inherit;font-weight:700;font-size:15px;cursor:pointer}
+.go:disabled{opacity:.45}
+.stars{display:flex;justify-content:center;gap:6px;font-size:40px}
+.stars span{cursor:pointer;color:rgba(255,255,255,.4);transition:.15s}.stars span.on{color:#ffd43b;transform:scale(1.15)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+.chip{padding:7px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;font:inherit;font-size:13px;cursor:pointer}
+.chip.on{background:#fff;color:#0f766e}
+.upi{background:#fff;color:#12302b;border-radius:18px;padding:16px;text-align:center}
+.tick{font-size:60px;animation:pop .5s}@keyframes pop{from{transform:scale(0)}}
+.qr{width:120px;height:120px;margin:10px auto;background:conic-gradient(#12302b 25%,#fff 0 50%,#12302b 0 75%,#fff 0);background-size:20px 20px;border:8px solid #fff;border-radius:6px}
+.note{font-size:12px;color:var(--mut)}.demo{max-width:380px;margin:0 auto 12px}.demo summary{cursor:pointer}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<nav id="nav"><b>Tipzy</b></nav>
+<main id="app"></main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const TAGS=['Food taste','Service speed','Staff behaviour','Cleanliness','Ambience','Value for money'];
+const QUOTES={10:'Thanks for the coffee ☕',20:'Thanks for the quick snack 🍪',30:'Thanks for the breakfast 🍳',50:'Thanks for making our meal unforgettable ❤️'};
+const CUSTOM='Every rupee means the world to someone working hard for you 🙏';
+const R=[];
+const reviews=[],tips=[];
+const st={v:'adm',rid:null,wid:null,tok:null,ready:1,step:'tip',amt:0,rating:0,tags:[],txt:'',msg:''};
+const DEMO=false;
+
+const SB_URL='https://nwgxzvvovtzleztnqgup.supabase.co',SB_KEY='sb_publishable_jO0z0QH5kE9SDvcJzQmjzg_SGhj3V-L';
+const rpc=async(fn,args)=>{const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(args)});const t=await r.text();if(!r.ok)throw new Error(t);return t?JSON.parse(t):null};
+const days=c=>Math.max(0,14-Math.floor((Date.now()-new Date(c))/864e5)),mapW=w=>({id:w.id,n:w.name,e:w.emoji,u:w.upi_id,wt:w.waiter_token,tt:w.tip_token});
+const fail=()=>{st.v='bad';st.lock='bad';st.ready=1;render()};
+async function load(){const t=st.tok;let d;
+ if(st.lock=='cust'){d=await rpc('get_tip_page',{p_tip:t});if(!d)return fail();R.splice(0,R.length,{id:'r',name:d.restaurant,g:d.google_link,w:[{id:d.waiter_id,n:d.name,e:d.emoji,u:d.upi_id,tt:t}]});st.rid='r';st.wid=d.waiter_id}
+ else if(st.lock=='own'){d=await rpc('get_owner_data',{p_owner:t});if(!d)return fail();const r=d.restaurant;R.splice(0,R.length,{id:r.id,name:r.name,g:r.google_link,w:d.waiters.map(mapW)});
+  reviews.splice(0,reviews.length,...d.reviews.map(v=>({uid:v.id,rid:r.id,w:v.waiter_id,r:v.rating,tags:v.tags||[],t:v.comment||'(no comment)',d:days(v.created_at),done:v.handled})));
+  tips.splice(0,tips.length,...d.tips.map(x=>({w:x.waiter_id,a:x.amount,d:days(x.created_at),v:true})));st.rid=r.id}
+ else if(st.lock=='wait'){d=await rpc('get_waiter_data',{p_waiter:t});if(!d)return fail();const w=d.waiter;
+  R.splice(0,R.length,{id:'r',name:d.restaurant,g:'',w:d.team.map(x=>x.id==w.id?{...mapW(w),wt:t}:{id:x.id,n:'',e:'',u:''})});
+  reviews.splice(0,reviews.length,...d.reviews.map(v=>({rid:'r',w:w.id,r:v.rating,tags:v.tags||[],t:v.comment||'',d:days(v.created_at)})));
+  tips.splice(0,tips.length,...d.tips.map(x=>({uid:x.id,w:w.id,a:x.amount,d:days(x.created_at),v:x.verified})),...d.team.filter(x=>x.id!=w.id).map(x=>({w:x.id,a:x.total,d:0,v:true})));st.rid='r';st.wid=w.id}
+ st.ready=1}
+const BASE=location.href.split('#')[0],lk=(k,id)=>BASE+'#'+k+'-'+id,SK='tipqr1';let noSave=0;
+const saveS=()=>{if(noSave)return;try{localStorage.setItem(SK,JSON.stringify({R,reviews,tips}))}catch(e){}};
+const loadS=()=>{try{const d=JSON.parse(localStorage.getItem(SK)||'null');if(d&&d.R){R.splice(0,R.length,...d.R);reviews.splice(0,reviews.length,...d.reviews);tips.splice(0,tips.length,...d.tips)}}catch(e){}};
+const copyH=()=>app.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>{try{navigator.clipboard.writeText(b.dataset.copy)}catch(e){}const o=b.textContent;b.textContent='Copied ✓';setTimeout(()=>{b.textContent=o},1500)});
+const upiLink=w=>'upi://pay?pa='+encodeURIComponent(w.u)+'&pn='+encodeURIComponent(w.n)+'&am='+st.amt+'&cu=INR&tn='+encodeURIComponent('Tip for '+w.n);
+const $=s=>document.querySelector(s),app=$('#app');
+const views=[['cust','Customer (QR scan)'],['own','Owner dashboard'],['wait','Waiter dashboard'],['adm','Super admin'],['plan','Business plan']];
+function nav(){$('#nav').innerHTML='<b>Tipzy</b>'}
+const rest=()=>R.find(r=>r.id==st.rid),allW=()=>R.flatMap(r=>r.w.map(w=>({...w,rid:r.id,rn:r.name})));
+const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+function health(rs){if(!rs.length)return 0;const p=rs.filter(x=>x.r>=4).length/rs.length;return Math.round(avg(rs.map(x=>x.r))/5*70+p*30)}
+function line(vals,w=620,h=170){const mn=Math.min(...vals)-.2,mx=Math.max(...vals)+.2,x=i=>20+i*(w-40)/(vals.length-1),y=v=>h-20-(v-mn)/(mx-mn)*(h-40);
+ const p=vals.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
+ return `<svg viewBox="0 0 ${w} ${h}" width="100%" role="img" aria-label="Rating trend"><polyline fill="none" stroke="var(--teal)" stroke-width="3" points="${p}"/>${vals.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="var(--acc)"><title>${v.toFixed(2)}</title></circle>`).join('')}<text x="20" y="14" fill="var(--mut)" font-size="11">${mx.toFixed(1)}</text><text x="20" y="${h-4}" fill="var(--mut)" font-size="11">${mn.toFixed(1)}</text></svg>`}
+/* CUSTOMER */
+const IDLE='Tap an amount and see what your kindness means 💛',LBL=['Tap a star','Very bad','Poor','Okay','Good','Excellent!'];
+const payLbl=(n,a)=>`Make ${n}’s day ❤️${a?' · ₹'+a:''}`;
+let tw;function typeIt(el,t){clearInterval(tw);const c=[...t];let i=0;el.textContent='';el.classList.add('typing');tw=setInterval(()=>{el.textContent=c.slice(0,++i).join('');if(i>=c.length){clearInterval(tw);el.classList.remove('typing')}},24)}
+function cust(){const r=rest(),w=r.w.find(x=>x.id==st.wid)||r.w[0];st.wid=w.id;let h=`${DEMO&&!st.lock?`<details class="demo"><summary class="s">Demo only: pick which QR card was scanned</summary><div class="row" style="margin-top:8px"><select id="sr">${R.filter(x=>x.w.length).map(x=>`<option value="${x.id}" ${x.id==st.rid?'selected':''}>${x.name}</option>`).join('')}</select><select id="sw">${r.w.map(x=>`<option value="${x.id}" ${x.id==w.id?'selected':''}>${x.n}</option>`).join('')}</select></div></details>`:''}<div class="stage"><div class="phone"><i class="blob b1"></i><i class="blob b2"></i><div class="scr ${(()=>{const e=st.last!=st.step;st.last=st.step;return e?'enter':''})()}" id="sc">`;
+ if(st.step=='tip'){const q=st.amt?(QUOTES[st.amt]||CUSTOM):'Tap an amount and see what your kindness means 💛';const isC=st.amt&&!QUOTES[st.amt];
+  h+=`<div class="ctr s" style="color:#fff;opacity:.85;margin-bottom:10px">${r.name}</div><div class="av">${w.e}</div><div class="ctr" style="margin-bottom:14px"><div style="font-size:24px;font-weight:800">Hi, I’m ${w.n} 👋</div><div style="opacity:.9">I’m serving you today.</div><div style="margin-top:8px;font-size:15px;opacity:.95">A small tip from you helps me care for my family. Thank you for making my day. 🙏</div></div>
+  <div class="glass"><div class="amts">${[10,20,30,50].map(a=>`<button class="amt ${st.amt==a?'on':''}" data-a="${a}">₹${a}</button>`).join('')}</div><input id="ci" type="number" min="1" inputmode="numeric" placeholder="Or enter your own amount ₹" value="${isC?st.amt:''}"></div>
+  <div class="quote" id="q" data-t="${q}">${q}</div><button class="go" id="pay" ${st.amt?'':'disabled'}>${payLbl(w.n,st.amt)}</button>`}
+ else if(st.step=='thx'){h+=`<div class="glass ctr"><div class="tick">💛</div><h2 style="margin:6px 0">Almost there</h2><p>${w.n} will receive your ₹${st.amt} directly. Your kindness truly makes a difference.</p><a class="go" target="_top" rel="noopener" style="display:block;text-decoration:none" href="${upiLink(w)}">Send ₹${st.amt} with love ❤️</a><p style="margin:12px 0 6px">Or pay manually to <b>${w.u}</b></p><button class="chip" id="cp">Copy UPI ID</button></div><div class="glass ctr"><p>Your review is the lifeline of ${r.name}. It takes just 30 seconds and means a lot to every person who served you.</p><button class="go" id="rv">Leave a review</button></div>`}
+ else if(st.step=='rev'){h+=`<div class="ctr" style="font-size:22px;font-weight:800;margin-bottom:10px">${r.name}</div><div class="glass ctr"><div class="stars">${[1,2,3,4,5].map(i=>`<span data-s="${i}" class="${i<=st.rating?'on':''}">★</span>`).join('')}</div><div class="s" id="sl" style="color:#fff">${['Tap a star','Very bad','Poor','Okay','Good','Excellent!'][st.rating]}</div></div>
+  <div class="glass"><div>What stood out?</div><div class="chips">${TAGS.map(t=>`<button class="chip ${st.tags.includes(t)?'on':''}" data-t="${t}">${t}</button>`).join('')}</div><textarea id="fx" rows="3" placeholder="Tell us more (optional)">${st.txt}</textarea></div><button class="go" id="sub" ${st.rating?'':'disabled'}>Submit</button>`}
+ else{h+=`<div class="glass ctr"><div class="tick">🙏</div><h2>Thank you!</h2><p>${st.rating>=4?`Would you also share this on Google so others can find ${r.name}?`:`Your feedback went straight to the ${r.name} owner. We will make it right.`}</p>${r.g?`<a class="go" target="_top" rel="noopener" style="display:block;text-decoration:none;margin-top:8px" href="${r.g}">${st.rating>=4?'Post on Google ⭐':'Also share on Google'}</a>`:''}<button class="chip" id="again" style="margin-top:12px">Done</button></div>`}
+ app.innerHTML=h+'</div></div></div>';
+ const sr=$('#sr'),sw=$('#sw');if(sr)sr.onchange=e=>{st.rid=+e.target.value;st.wid=rest().w[0].id;render()};if(sw)sw.onchange=e=>{st.wid=+e.target.value;render()};
+ const ci=$('#ci');const sync=()=>{app.querySelectorAll('.amt').forEach(b=>b.classList.toggle('on',+b.dataset.a==st.amt));const p=$('#pay');p.disabled=!st.amt;p.textContent=payLbl(w.n,st.amt);const q=$('#q'),t=st.amt?(QUOTES[st.amt]||CUSTOM):IDLE;if(q.dataset.t!==t){q.dataset.t=t;typeIt(q,t)}};
+ app.querySelectorAll('.amt').forEach(b=>b.onclick=()=>{st.amt=+b.dataset.a;ci.value='';sync()});
+ if(ci)ci.oninput=()=>{st.amt=Math.max(0,Math.floor(+ci.value));sync()};
+ const on=(id,f)=>{const e=$(id);if(e)e.onclick=f};
+ on('#pay',()=>{rpc('create_tip',{p_tip:w.tt,p_amount:st.amt}).catch(()=>{});st.step='thx';render()});on('#cp',()=>{try{navigator.clipboard.writeText(w.u)}catch(e){}$('#cp').textContent='Copied ✓'});on('#rv',()=>{st.step='rev';st.rating=0;st.tags=[];st.txt='';render()});
+ app.querySelectorAll('.stars span').forEach(x=>x.onclick=()=>{st.rating=+x.dataset.s;app.querySelectorAll('.stars span').forEach(y=>y.classList.toggle('on',+y.dataset.s<=st.rating));$('#sl').textContent=LBL[st.rating];$('#sub').disabled=false});
+ app.querySelectorAll('.chips .chip').forEach(c=>c.onclick=()=>{const t=c.dataset.t;st.tags=st.tags.includes(t)?st.tags.filter(x=>x!=t):[...st.tags,t];c.classList.toggle('on')});
+ on('#sub',async()=>{$('#sub').disabled=true;try{await rpc('submit_review',{p_tip:w.tt,p_rating:st.rating,p_tags:st.tags,p_comment:$('#fx').value})}catch(e){}st.step='done';render()});on('#again',()=>{st.step='tip';st.amt=0;render()})}
+/* OWNER */
+function own(){const r=rest(),rs=reviews.filter(x=>x.rid==st.rid),n=rs.length,pos=rs.filter(x=>x.r>=4).length,neg=rs.filter(x=>x.r<=3).length,a=avg(rs.map(x=>x.r)),hs=health(rs),N=st.rg||14;
+ const roll=d=>{const x=rs.filter(y=>y.d<=d&&y.d>d-3);return x.length?avg(x.map(y=>y.r)):null};
+ const pts=[];for(let d=14-N+1;d<=14;d++){const v=roll(d);if(v!=null)pts.push({d,v})}
+ const lbl=d=>d==14?'Today':(14-d)+' days ago';
+ const wk=rs.filter(x=>x.d>=8),pw=rs.filter(x=>x.d<8),dl=avg(wk.map(x=>x.r))-avg(pw.map(x=>x.r)),dc=wk.length-pw.length;
+ const grade=hs>=80?'Excellent':hs>=65?'Good':hs>=50?'Needs work':'Critical';
+ const tg=TAGS.map(t=>({t,p:rs.filter(x=>x.r>=4&&x.tags.includes(t)).length,q:rs.filter(x=>x.r<=3&&x.tags.includes(t)).length})).sort((x,y)=>(y.p+y.q)-(x.p+x.q));
+ const tm=Math.max(...tg.map(x=>x.p+x.q),1),worst=[...tg].sort((x,y)=>y.q-x.q)[0],best=[...tg].sort((x,y)=>y.p-x.p)[0];
+ const lw=r.w.map(w=>({...w,rv:rs.filter(x=>x.w==w.id),tp:tips.filter(x=>x.w==w.id).reduce((s,x)=>s+x.a,0)})).sort((x,y)=>avg(y.rv.map(z=>z.r))-avg(x.rv.map(z=>z.r)));
+ const tt=lw.reduce((s,w)=>s+w.tp,0),open=rs.filter(x=>x.r<=3&&!x.done).length;
+ const f=st.f||'all',list=rs.map((x,i)=>({...x,i})).filter(x=>f=='all'||(f=='pos'?x.r>=4:x.r<=3)).reverse().slice(0,15);
+ const W=640,H=210,mn=Math.min(...pts.map(p=>p.v))-.2,mx=Math.max(...pts.map(p=>p.v))+.2,X=i=>24+i*(W-48)/Math.max(pts.length-1,1),Y=v=>H-28-(v-mn)/(mx-mn)*(H-56);
+ const ln=pts.map((p,i)=>`${i?'L':'M'}${X(i)},${Y(p.v)}`).join(''),ar=ln+`L${X(pts.length-1)},${H-28}L${X(0)},${H-28}Z`;
+ const chart=!pts.length?'<p class="s">No reviews yet. The chart appears after the first review.</p>':`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Rating trend"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--teal)" stop-opacity=".4"/><stop offset="1" stop-color="var(--teal)" stop-opacity="0"/></linearGradient></defs>${[0,1,2].map(i=>`<line x1="24" x2="${W-24}" y1="${28+i*(H-56)/2}" y2="${28+i*(H-56)/2}" stroke="var(--line)"/>`).join('')}<path d="${ar}" fill="url(#ag)"/><path d="${ln}" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linejoin="round"/>${pts.map((p,i)=>`<circle id="c${i}" cx="${X(i)}" cy="${Y(p.v)}" r="4.5" fill="var(--acc)"/><rect class="hit" data-i="${i}" x="${X(i)-W/pts.length/2}" y="0" width="${W/pts.length}" height="${H}" fill="transparent" style="cursor:pointer"/>`).join('')}<text x="24" y="14" fill="var(--mut)" font-size="12">${mx.toFixed(1)}</text><text x="24" y="${H-8}" fill="var(--mut)" font-size="12">${mn.toFixed(1)}</text></svg>`;
+ const up=x=>`<span class="dl ${x>=0?'good':'bad'}">${x>=0?'▲':'▼'} ${Math.abs(x).toFixed(x%1?2:0)}</span>`;
+ const ins=[[dl>=0?'📈':'📉',`Rating is <b class="${dl>=0?'good':'bad'}">${dl>=0?'rising':'falling'}</b>: ${avg(wk.map(x=>x.r)).toFixed(2)} this week vs ${avg(pw.map(x=>x.r)).toFixed(2)} before.`],
+ worst&&worst.q?['⚠️',`Top complaint: <b>${worst.t}</b> (${worst.q} negative mentions). Fixing it is your fastest rating boost.`]:['✅','No complaints yet.'],
+ best&&best.p?['💛',`Customers love your <b>${best.t}</b> (${best.p} positive mentions). Mention it in your marketing.`]:['💛','Collect more reviews to see strengths.'],
+ ['🌐',`${pos} happy guests (${Math.round(pos/(n||1)*100)}%) were sent to Google Reviews. The other ${neg} were heard privately first.`],
+ open?['🔔',`<b>${open} negative review${open>1?'s':''}</b> not handled yet. Reply within 24 hours to win guests back.`]:['🎉','All negative reviews are handled.']];
+ app.innerHTML=`<div class="hero"><div class="ring"><svg viewBox="0 0 120 120" width="130" height="130"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" cx="60" cy="60" r="52" style="stroke-dashoffset:${327*(1-hs/100)}"/></svg><b>${hs}<small>Health score</small></b></div>
+ <div style="flex:1;min-width:200px"><div style="opacity:.85;font-size:18px;font-weight:600">${r.name}</div><div class="row" style="margin-top:12px;gap:16px;align-items:flex-end"><div><div class="big">${a.toFixed(2)}<span style="font-size:22px;color:#ffd43b"> ★</span></div><div style="opacity:.85">Average rating</div></div><div><div style="font-weight:800;font-size:20px">${grade}</div><div>${up(dl)} vs last week</div></div></div></div></div>
+ <div class="grid" style="margin-top:12px"><div class="card kt"><div class="ic">💬</div><div><div class="k">${n}</div><div class="s">Total reviews ${up(dc)}</div></div></div><div class="card kt"><div class="ic">😊</div><div><div class="k good">${pos}</div><div class="s">Positive · ${Math.round(pos/(n||1)*100)}%</div></div></div><div class="card kt"><div class="ic">😟</div><div><div class="k bad">${neg}</div><div class="s">Negative · ${open} to reply</div></div></div><div class="card kt"><div class="ic">💸</div><div><div class="k">₹${tt}</div><div class="s">Tips to your team</div></div></div></div>
+ <div class="card" style="margin-top:12px"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Rating trend</h3><div class="seg">${[7,14].map(v=>`<button data-rg="${v}" class="${N==v?'on':''}">${v} days</button>`).join('')}</div></div><div id="rd" class="s" style="margin:6px 0">Tap any point to see that day</div>${chart}</div>
+ <div class="two"><div class="card"><h3>Rating split</h3>${[5,4,3,2,1].map(k=>{const c=rs.filter(x=>x.r==k).length;return `<div class="lr"><span>${k}★</span><div class="bar"><i style="width:${c/(n||1)*100}%;background:${k>=4?'var(--good)':k==3?'var(--acc)':'var(--bad)'}"></i></div><span class="s">${c}</span></div>`}).join('')}</div>
+ <div class="card"><h3>What guests mention</h3>${tg.map(x=>`<div style="margin:8px 0"><div class="row" style="justify-content:space-between;font-size:13px"><span>${x.t}</span><span class="s"><span class="good">${x.p}</span> / <span class="bad">${x.q}</span></span></div><div class="bar" style="width:${(x.p+x.q)/tm*100}%;min-width:20%"><i style="flex:${x.p||.01};background:var(--good)"></i><i style="flex:${x.q||.01};background:var(--bad)"></i></div></div>`).join('')}</div></div>
+ <div class="two"><div class="card"><h3>Insights</h3>${ins.map(i=>`<div class="ins"><span style="font-size:20px">${i[0]}</span><div>${i[1]}</div></div>`).join('')}</div>
+ <div class="card"><h3>Team leaderboard</h3>${lw.map((w,i)=>`<div class="ins"><div class="av2">${w.e}</div><div style="flex:1"><div class="row" style="justify-content:space-between"><b>${i==0?'🥇 ':''}${w.n}</b><span>${avg(w.rv.map(x=>x.r)).toFixed(1)} ★</span></div><div class="s">${w.rv.length} reviews · ₹${w.tp} tips</div></div></div>`).join('')}</div></div>
+ <div class="card" style="margin-top:12px"><h3>Manage waiters</h3><div class="s" style="margin-bottom:8px">Add your waiters and share each person's own links.</div><div class="row"><input id="nwn" placeholder="Waiter name"><input id="nwu" placeholder="UPI ID (name@bank)"><button class="btn" id="nwa">Add waiter</button></div><div class="s ${st.mok?'good':'bad'}" style="margin:6px 0">${st.mm||''}</div>${r.w.map(w=>`<div class="fbk" style="flex-wrap:wrap"><div class="av2">${w.e}</div><div style="flex:1;min-width:150px"><b>${w.n}</b><div class="s">${w.u}</div></div><div class="row"><button class="btn" data-copy="${lk('w',w.wt)}" style="padding:4px 10px;font-size:12px">Copy dashboard link</button><button class="btn" data-copy="${lk('t',w.tt)}" style="padding:4px 10px;font-size:12px;background:var(--teal)">Copy QR link</button><a href="${lk('w',w.wt)}" target="_blank" rel="noopener" class="s">Open</a></div></div>`).join('')||'<p class="s">No waiters yet. Add your first one above.</p>'}</div>
+ <div class="card" style="margin-top:12px"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Feedback</h3><div class="seg">${[['all','All'],['pos','Positive'],['neg','Negative']].map(v=>`<button data-f="${v[0]}" class="${f==v[0]?'on':''}">${v[1]}</button>`).join('')}</div></div>
+ ${list.map(x=>{const w=allW().find(y=>y.id==x.w);return `<div class="fbk"><div class="av2">${w?w.e:'🙂'}</div><div style="flex:1;min-width:0"><div class="row" style="justify-content:space-between"><b class="${x.r>=4?'good':'bad'}">${'★'.repeat(x.r)}<span style="opacity:.3">${'★'.repeat(5-x.r)}</span></b><span class="s">${lbl(x.d)}</span></div><div>${x.t}</div><div class="s">Served by ${w?w.n:''}</div>${x.tags.map(t=>`<span class="pill">${t}</span>`).join('')}${x.r<=3?(x.done?'<span class="pill good">Handled</span>':`<button class="btn" data-h="${x.i}" style="padding:4px 12px;margin-top:6px;font-size:12px">Mark handled</button>`):''}</div></div>`}).join('')||'<p class="s">No feedback yet.</p>'}</div>`;
+ app.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{st.f=b.dataset.f;render()});app.querySelectorAll('[data-rg]').forEach(b=>b.onclick=()=>{st.rg=+b.dataset.rg;render()});
+ app.querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{rpc('mark_handled',{p_owner:st.tok,p_review:rs[+b.dataset.h].uid}).then(async()=>{await load();render()})});
+ $('#nwa').onclick=async()=>{const n=$('#nwn').value.trim(),u=$('#nwu').value.trim();if(!n||!/^[\w.\-]{2,}@[a-zA-Z]{2,}$/.test(u)){st.mm='Enter a name and a valid UPI ID like name@bank.';st.mok=0;return render()}try{await rpc('add_waiter',{p_owner:st.tok,p_name:n,p_upi:u});st.mm=n+' added. Share their links below.';st.mok=1;await load()}catch(e){st.mm='Could not add waiter. Try again.';st.mok=0}render()};copyH();
+ app.querySelectorAll('.hit').forEach(h=>h.onpointerdown=h.onpointerenter=()=>{const i=+h.dataset.i;pts.forEach((_,j)=>$('#c'+j).setAttribute('r',j==i?8:4.5));$('#rd').innerHTML=`<b>${lbl(pts[i].d)}</b>: ${pts[i].v.toFixed(2)} ★ (3-day average)`})}
+/* WAITER */
+function wait(){tips.forEach(t=>{if(t.v===undefined)t.v=t.d<12});
+ const ws=allW(),w0=ws.find(x=>x.id==st.wid)||ws[0];st.wid=w0.id;const rr=R.find(x=>x.id==w0.rid),w=rr.w.find(x=>x.id==w0.id);
+ const sum=a=>a.reduce((s,x)=>s+x.a,0),mine=tips.filter(x=>x.w==w.id),rs=reviews.filter(x=>x.w==w.id),tot=sum(mine),today=sum(mine.filter(x=>x.d==14)),pend=sum(mine.filter(x=>!x.v));
+ const rank=rr.w.map(x=>({id:x.id,s:sum(tips.filter(y=>y.w==x.id))})).sort((p,q)=>q.s-p.s).findIndex(x=>x.id==w.id)+1;
+ const tc={};rs.filter(x=>x.r<=3).forEach(x=>x.tags.forEach(k=>tc[k]=(tc[k]||0)+1));const top=Object.entries(tc).sort((p,q)=>q[1]-p[1])[0];
+ const wk=[];for(let d=8;d<=14;d++)wk.push(sum(mine.filter(x=>x.d==d)));const mx=Math.max(...wk,1);
+ const link=lk('t',w.tt),when=d=>d==14?'Today':(14-d)+'d ago',EM=['🧑‍🍳','👩‍🍳','🧑','👨','👩','🧔','👨‍🦱','👩‍🦰'];
+ app.innerHTML=`<div class="hero"><div class="av" style="margin:0;width:84px;height:84px;font-size:42px">${w.e}</div><div style="flex:1;min-width:190px"><div style="opacity:.85">Waiter dashboard · ${rr.name}</div><h2>${w.n}</h2><div style="margin-top:6px">#${rank} in your team · ${avg(rs.map(x=>x.r)).toFixed(1)} ★ from ${rs.length} reviews</div></div></div>
+ <div class="grid" style="margin-top:12px"><div class="card kt"><div class="ic">☀️</div><div><div class="k">₹${today}</div><div class="s">Tips today</div></div></div><div class="card kt"><div class="ic">💰</div><div><div class="k">₹${tot}</div><div class="s">Last 15 days</div></div></div><div class="card kt"><div class="ic">⏳</div><div><div class="k" style="color:var(--acc)">₹${pend}</div><div class="s">Not verified yet</div></div></div><div class="card kt"><div class="ic">⭐</div><div><div class="k">${avg(rs.map(x=>x.r)).toFixed(1)}</div><div class="s">Your rating</div></div></div></div>
+ <div class="two"><div class="card ctr"><h3>Your QR code</h3><div id="qr" style="display:inline-block;background:#fff;padding:10px;border-radius:12px;min-width:170px;min-height:170px"></div><div class="s" style="margin:8px 0;word-break:break-all">${link}</div><button class="btn" id="cl">Copy link</button><div class="s" style="margin-top:8px">Customers scan this to tip you. Print it on the bill-book card.</div></div>
+ <div class="card"><h3>Your profile</h3><div class="s">Photo</div><div class="seg" id="em" style="margin:6px 0 10px">${EM.map(e=>`<button data-e="${e}" class="${e==w.e?'on':''}" style="font-size:20px">${e}</button>`).join('')}</div><div class="s">Name</div><input id="pn" value="${w.n}" style="width:100%;margin:4px 0 10px"><div class="s">UPI ID (tips are sent here)</div><input id="pu" value="${w.u}" style="width:100%;margin:4px 0 10px" autocapitalize="none" spellcheck="false"><div class="row"><button class="btn" id="sv">Save changes</button><span class="s ${st.pok?'good':'bad'}">${st.pm||''}</span></div><div class="s" style="margin-top:8px">New tips go to the updated UPI ID right away.</div></div></div>
+ <div class="card" style="margin-top:12px"><h3>Recent tips</h3><div class="s" style="margin-bottom:6px">Check each tip in your UPI app, then tap Verify.</div>${mine.slice(-8).reverse().map(t=>`<div class="fbk" style="align-items:center"><div class="av2">₹</div><div style="flex:1"><b>₹${t.a}</b> <span class="s">· ${when(t.d)}</span></div>${t.v?'<span class="pill good">Verified ✓</span>':`<button class="btn" data-v="${tips.indexOf(t)}" style="padding:4px 12px;font-size:12px">Verify</button>`}</div>`).join('')||'<p class="s">No tips yet.</p>'}</div>
+ <div class="two"><div class="card"><h3>Tips, last 7 days</h3><div class="row" style="align-items:flex-end;height:130px;gap:10px;flex-wrap:nowrap">${wk.map((v,i)=>`<div style="flex:1;text-align:center"><div class="s">₹${v}</div><div style="height:${v/mx*80+4}px;background:var(--teal);border-radius:6px 6px 0 0"></div><div class="s">${i==6?'Today':'D-'+(6-i)}</div></div>`).join('')}</div></div>
+ <div class="card"><h3>How to earn more</h3><p>${top?`Guests flagged <b>${top[0]}</b> ${top[1]} times. Improving it is your fastest way to raise ratings and tips.`:'No complaints. Keep it up!'}</p><p>Greet within 2 minutes, suggest a dish, and hand over the bill book with a smile. Tables that notice the QR card tip more.</p></div></div>`;
+ if(window.QRCode)new QRCode($('#qr'),{text:link,width:150,height:150,colorDark:'#12302b',colorLight:'#ffffff'});else $('#qr').textContent='QR loading…';
+ $('#cl').onclick=()=>{try{navigator.clipboard.writeText(link)}catch(e){}$('#cl').textContent='Copied ✓'};
+ let pe=w.e;app.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{pe=b.dataset.e;app.querySelectorAll('[data-e]').forEach(x=>x.classList.toggle('on',x==b))});
+ app.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{rpc('verify_tip',{p_waiter:st.tok,p_tip:tips[+b.dataset.v].uid}).then(async()=>{await load();render()})});
+ $('#sv').onclick=async()=>{const n=$('#pn').value.trim(),u=$('#pu').value.trim();if(!n){st.pm='Enter your name.';st.pok=0;return render()}if(!/^[\w.\-]{2,}@[a-zA-Z]{2,}$/.test(u)){st.pm='UPI ID should look like name@bank.';st.pok=0;return render()}try{await rpc('update_waiter_profile',{p_waiter:st.tok,p_name:n,p_emoji:pe,p_upi:u});st.pm='Saved ✓';st.pok=1;await load()}catch(e){st.pm='Could not save. Try again.';st.pok=0}render()}}
+/* ADMIN */
+function adm(){let k=st.ak;if(!k){try{k=localStorage.getItem('tz_ak')}catch(e){}}
+ if(!k){app.innerHTML=`<div class="card" style="max-width:420px;margin:40px auto"><h3>Tipzy admin</h3><input id="ak" type="password" placeholder="Admin key" style="width:100%;margin:8px 0"><button class="btn" id="al">Sign in</button><div class="s bad" style="margin-top:8px">${st.err||''}</div></div>`;
+  $('#al').onclick=async()=>{const v=$('#ak').value.trim();try{await rpc('admin_list',{p_admin:v});st.ak=v;st.err='';try{localStorage.setItem('tz_ak',v)}catch(e){}render()}catch(e){const m=String(e.message||e);st.err=m.includes('not allowed')?'Wrong admin key. Copy it again with no spaces.':'Error: '+m.slice(0,220);render()}};return}
+ st.ak=k;
+ if(!st.al){app.innerHTML='<p class="s" style="text-align:center;margin-top:60px">Loading…</p>';rpc('admin_list',{p_admin:k}).then(l=>{st.al=l||[];render()}).catch(e=>{st.ak=null;st.err='Key not accepted: '+String(e.message||e).slice(0,160);try{localStorage.removeItem('tz_ak')}catch(e){}render()});return}
+ const L=st.al,sm=f=>L.reduce((s,x)=>s+(+x[f]||0),0);
+ app.innerHTML=`<div class="row" style="justify-content:space-between"><h2 style="margin:0">Super admin</h2><button class="btn" id="so" style="background:var(--mut)">Sign out</button></div><div class="grid" style="margin-top:12px"><div class="card"><div class="k">${L.length}</div><div class="s">Restaurants</div></div><div class="card"><div class="k">${sm('waiters')}</div><div class="s">Waiters</div></div><div class="card"><div class="k">${sm('reviews')}</div><div class="s">Reviews</div></div><div class="card"><div class="k">₹${sm('tips_total')}</div><div class="s">Tips initiated</div></div></div>
+ <div class="card" style="margin-top:12px"><h3>Onboard a restaurant</h3><div class="row"><input id="rn" placeholder="Restaurant name"><input id="ro" placeholder="Owner name"><input id="rg" placeholder="Google review link"><button class="btn" id="ar">Onboard</button></div><div class="s ${st.aok?'good':'bad'}" style="margin-top:8px">${st.msg||'You get a private owner link. The owner adds waiters and shares their links.'}</div></div>
+ <h2>Restaurants</h2>${L.map(r=>`<div class="card" style="margin-bottom:10px"><div class="row" style="justify-content:space-between"><b style="font-size:17px">${r.name}</b><span class="s">Owner: ${r.owner_name||'-'}</span></div><div class="s">${r.waiters} waiters · ${r.reviews} reviews · ${r.avg_rating||'-'} ★ · ₹${r.tips_total} tips</div><div class="s" style="margin-top:8px">Owner dashboard link (send this to the owner)</div><div class="row"><input readonly value="${lk('o',r.owner_token)}" style="flex:1;min-width:200px"><button class="btn" data-copy="${lk('o',r.owner_token)}">Copy</button><a class="btn" style="text-decoration:none" href="${lk('o',r.owner_token)}" target="_blank" rel="noopener">Open</a></div></div>`).join('')}`;
+ $('#so').onclick=()=>{st.ak=null;st.al=null;try{localStorage.removeItem('tz_ak')}catch(e){}render()};
+ $('#ar').onclick=async()=>{const n=$('#rn').value.trim();if(!n){st.msg='Enter a restaurant name.';st.aok=0;return render()}try{await rpc('admin_create_restaurant',{p_admin:k,p_name:n,p_owner:$('#ro').value.trim(),p_google:$('#rg').value.trim()});st.msg=n+' onboarded. Copy its owner link below.';st.aok=1;st.al=null}catch(e){st.msg='Could not onboard. Try again.';st.aok=0}render()};
+ copyH()}
+/* PLAN */
+function plan(){const S=(t,b)=>`<div class="card" style="margin-top:12px"><h3>${t}</h3>${b}</div>`;
+ app.innerHTML=`<h2 style="margin-top:0">Business breakdown</h2>
+ ${S('The problem','<p>Cashless payments killed cash tips, so waiters earn less. Owners get few Google reviews and hear about bad service only after it is public. Tipzy fixes both with one card in the bill book.</p>')}
+ ${S('Who pays and why','<p><b>Customer:</b> free, 20-second tip. <b>Waiter:</b> free, gets tips directly. <b>Restaurant:</b> pays monthly (₹999–2,999 per outlet) for review capture, private complaint catching and analytics. <b>Platform:</b> takes no cut of tips; earns only from restaurant subscriptions.</p>')}
+ ${S('Flow','<p>Bill book card QR → waiter page (photo, ₹10/20/30/50/custom, emotional line) → UPI deep link to the waiter → thank-you → review page → stars 1–3 saved privately to owner; 4–5 saved and redirected to the Google review link → owner dashboard updates.</p>')}
+ ${S('How tips reach waiters (important)','<p>No payment gateway. Each waiter has a UPI ID, and the Proceed button opens a upi://pay link with the waiter’s ID and the chosen amount in the customer’s own UPI app, so money goes straight to the waiter. Limitation: the app cannot confirm the payment, so tips are counted when the customer returns to the page.</p>')}
+ ${S('Build stack','<p>Next.js or React PWA, Supabase/Postgres (restaurants, waiters, tips, reviews, tags), auth with roles (admin, owner, waiter), QR generation per waiter, a unique short URL per QR, Google Place review link per restaurant.</p>')}
+ ${S('Risks to handle','<p><b>Google policy:</b> sending only 4–5★ to Google is called review gating and can violate Google guidelines. Safer: show the Google link to everyone and keep private feedback as an option. <b>Fake reviews</b> (one scan per bill, unique bill QR). <b>Waiter fraud</b> (verified UPI). <b>Pooled tips</b> (support shared-tip splits).</p>')}
+ ${S('Go-to-market','<p>Pilot 5 cafés in Chennai free for 30 days, show before/after Google rating, then sell to owner groups. Print cost per card is under ₹5. Upsell: monthly rating report, staff leaderboard, WhatsApp alerts for 1–2★ reviews.</p>')}`}
+function bad(){app.innerHTML='<div class="card" style="max-width:480px;margin:40px auto"><h3>This link is not valid</h3><p class="s">Please check the link you were given, or ask the person who sent it to share it again.</p></div>'}
+function route(){const m=location.hash.match(/^#([otw])-([a-f0-9]{16,})$/);st.lock=null;st.ready=1;st.al=null;
+ if(m){st.tok=m[2];st.lock={o:'own',w:'wait',t:'cust'}[m[1]];st.v=st.lock;st.ready=0;st.step='tip';st.amt=0}else st.v='adm'}
+function render(){nav();if(!st.ready){app.innerHTML='<p class="s" style="text-align:center;margin-top:60px">Loading…</p>';return}({cust,own,wait,adm,plan,bad})[st.v]()}
+async function boot(){route();if(!st.ready){try{await load()}catch(e){return fail()}}render()}
+window.addEventListener('hashchange',boot);
+setInterval(async()=>{const a=document.activeElement;if(st.ready&&(st.lock=='own'||st.lock=='wait')&&!document.hidden&&!(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName))){try{await load();render()}catch(e){}}},30000);
+boot();
+</script></body></html>
